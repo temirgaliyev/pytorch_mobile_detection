@@ -1,16 +1,19 @@
 package org.pytorch.helloworld;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Box {
+class Box {
+    public static Comparator boxesComparator = new Comparator<Box>() {
+        @Override
+        public int compare(Box box1, Box box2) {
+            return Float.compare(box1.getMaxProbability(), box2.getMaxProbability());
+        }
+    };
     private float centerX, centerY;
     private float width, height;
-
     private float topLeftX, topLeftY;
     private float botRightX, botRightY;
-
     private float[] scores;
     private float maxProbability;
     private int maxIndex;
@@ -21,10 +24,10 @@ public class Box {
         this.width = width;
         this.height = height;
 
-        this.topLeftX = centerX - width/2;
-        this.topLeftY = centerY - height/2;
-        this.botRightX = centerX + width/2;
-        this.botRightY = centerY + height/2;
+        this.topLeftX = centerX - width / 2;
+        this.topLeftY = centerY - height / 2;
+        this.botRightX = centerX + width / 2;
+        this.botRightY = centerY + height / 2;
 
         this.scores = scores;
         this.maxProbability = scores[0];
@@ -36,12 +39,11 @@ public class Box {
         }
     }
 
-    public static Box fromCentered(float centerX, float centerY, float width, float height, float[] scores){
+    public static Box fromCentered(float centerX, float centerY, float width, float height, float[] scores) {
         return new Box(centerX, centerY, width, height, scores);
     }
 
-
-    public static float IOU(Box boxA, Box boxB){
+    public static float IOU(Box boxA, Box boxB) {
         float xA = Math.max(boxA.getTopLeftX(), boxB.getTopLeftX());
         float yA = Math.max(boxA.getTopLeftY(), boxB.getTopLeftY());
         float xB = Math.min(boxA.getBotRightX(), boxB.getBotRightX());
@@ -55,7 +57,7 @@ public class Box {
         return interArea / (boxAArea + boxBArea - interArea);
     }
 
-    public float[] IOU(List<Box> boxes){
+    public float[] IOU(List<Box> boxes) {
         float[] ious = new float[boxes.size()];
 
         for (int i = 0; i < ious.length; i++) {
@@ -64,7 +66,7 @@ public class Box {
         return ious;
     }
 
-    public void scaleBox(float imageWidth, float imageHeight){
+    public void scaleBox(float imageWidth, float imageHeight) {
         this.centerX *= imageWidth;
         this.centerY *= imageHeight;
         this.width *= imageWidth;
@@ -75,7 +77,6 @@ public class Box {
         this.botRightX *= imageWidth;
         this.botRightY *= imageHeight;
     }
-
 
     public float getCenterX() {
         return centerX;
@@ -120,13 +121,5 @@ public class Box {
     public int getMaxIndex() {
         return maxIndex;
     }
-
-
-    public static Comparator boxesComparator = new Comparator<Box>() {
-        @Override
-        public int compare(Box box1, Box box2) {
-            return Float.compare(box1.getMaxProbability(), box2.getMaxProbability());
-        }
-    };
 
 }

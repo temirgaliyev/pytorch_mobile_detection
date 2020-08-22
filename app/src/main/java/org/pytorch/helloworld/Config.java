@@ -3,11 +3,10 @@ package org.pytorch.helloworld;
 import java.util.ArrayList;
 
 public class Config {
-    public static final float[] mean = new float[]{0.49803921568f, 0.49803921568f, 0.49803921568f};
-    public static final float[] std = new float[]{0.50196078431f, 0.50196078431f, 0.50196078431f};
+    public static final float[] mean = new float[]{0f, 0f, 0f};
+    public static final float[] std = new float[]{1f, 1f, 1f};
     public static final float centerVariance = 0.1f;
     public static final float sizeVariance = 0.2f;
-
 
     public static final int size = 300;
 
@@ -20,11 +19,11 @@ public class Config {
             new SSDSpec(1, 300, new SSDBoxSizes(285, 330), new int[]{2, 3})
     };
 
-   public static final ArrayList<Prior> priors =  TensorUtils.generateSSDPriors(specs, size);
+    public static final ArrayList<Prior> priors = TensorUtils.generateSSDPriors(specs, size);
 
-   public static String[] classes = new String[]{
-           "BACKGROUND", "aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car",
-           "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person",
-           "pottedplant", "sheep", "sofa", "train", "tvmonitor"
-   };
+    public static String[] classes = new String[]{
+            "BACKGROUND", "aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car",
+            "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person",
+            "pottedplant", "sheep", "sofa", "train", "tvmonitor"
+    };
 }

@@ -1,14 +1,12 @@
 package org.pytorch.helloworld;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class TensorUtils {
 
-    public static ArrayList<Box> convertLocations2Boxes(ArrayList<Box> locations, ArrayList<Prior> priors, float centerVariance, float sizeVariance){
+    public static ArrayList<Box> convertLocations2Boxes(ArrayList<Box> locations, ArrayList<Prior> priors, float centerVariance, float sizeVariance) {
         ArrayList<Box> boxes = new ArrayList<>();
 
         float center_x, center_y, width, height;
@@ -17,8 +15,8 @@ public class TensorUtils {
             Box location = locations.get(i);
             Prior prior = priors.get(i);
 
-            center_x = location.getCenterX() * centerVariance * prior.getCenter_x() + prior.getWidth();
-            center_y = location.getCenterY() * centerVariance * prior.getCenter_y() + prior.getHeight();
+            center_x = location.getCenterX() * centerVariance * prior.getCenterX() + prior.getWidth();
+            center_y = location.getCenterY() * centerVariance * prior.getCenterY() + prior.getHeight();
             width = (float) (Math.exp(location.getWidth() * sizeVariance) * prior.getWidth());
             height = (float) (Math.exp(location.getHeight() * sizeVariance) * prior.getHeight());
 
@@ -27,18 +25,8 @@ public class TensorUtils {
         return boxes;
     }
 
-    /**
-     * Converts center-width-height form to left-up corner right-down corner form
-     *
-     * @param locations in center-width-height form
-     * @return locations in left-up corner right-down corner form
-     */
-    public static float[] centerForm2CornerForm(float[] locations){
 
-        return locations;
-    }
-
-    public static ArrayList<Box> nonMaximumSuppression(LinkedList<Box> boxes, float iouThreshold, float topK, float candidate_size){
+    public static ArrayList<Box> nonMaximumSuppression(LinkedList<Box> boxes, float iouThreshold, float topK, float candidate_size) {
         ArrayList<Box> notSuppressedBoxes = new ArrayList<>();
         Collections.sort(boxes, Collections.<Box>reverseOrder(Box.boxesComparator));
 
@@ -46,19 +34,19 @@ public class TensorUtils {
             boxes.subList((int) candidate_size, boxes.size()).clear();
         }
 
-        while(boxes.size() > 0){
+        while (boxes.size() > 0) {
             Box currentBox = boxes.removeFirst();
             notSuppressedBoxes.add(currentBox);
 
-            if ((topK >= 0 && topK == notSuppressedBoxes.size()) || boxes.size() == 1){
+            if ((topK >= 0 && topK == notSuppressedBoxes.size()) || boxes.size() == 1) {
                 break;
             }
 
             float[] ious = currentBox.IOU(boxes);
             int removed = 0;
             for (int i = 0; i < ious.length; i++) {
-                if (ious[i] < iouThreshold){
-                    boxes.remove(i-removed);
+                if (ious[i] > iouThreshold) {
+                    boxes.remove(i - removed);
                     removed++;
                 }
             }
@@ -66,11 +54,11 @@ public class TensorUtils {
         return notSuppressedBoxes;
     }
 
-    public static ArrayList<Box> nonMaximumSuppression(LinkedList<Box> boxes, float iouThreshold){
+    public static ArrayList<Box> nonMaximumSuppression(LinkedList<Box> boxes, float iouThreshold) {
         return nonMaximumSuppression(boxes, iouThreshold, -1, 200);
     }
 
-    public static float[] softmax(float[] confidences){
+    public static float[] softmax(float[] confidences) {
         float[] softmax = new float[confidences.length];
         float expSum = 0;
 
@@ -85,14 +73,14 @@ public class TensorUtils {
         return softmax;
     }
 
-    public static ArrayList<Prior> generateSSDPriors(SSDSpec[] ssdSpecs, int imageSize){
+    public static ArrayList<Prior> generateSSDPriors(SSDSpec[] specs, int imageSize) {
 
         ArrayList<Prior> priors = new ArrayList<>();
         float x_center, y_center;
         float size, h, w;
         float ratio;
-        for (SSDSpec spec: ssdSpecs) {
-            float scale = (float)imageSize/ (float)spec.getShrinkage();
+        for (SSDSpec spec : specs) {
+            float scale = (float) imageSize / (float) spec.getShrinkage();
 
             for (int j = 0; j < spec.getFeatureMapSize(); j++) {
                 for (int i = 0; i < spec.getFeatureMapSize(); i++) {
@@ -113,10 +101,10 @@ public class TensorUtils {
                     h = size / imageSize;
                     w = h;
 
-                    for (int aspectRatio: spec.getAspectRatios()) {
+                    for (int aspectRatio : spec.getAspectRatios()) {
                         ratio = (float) Math.sqrt(aspectRatio);
-                        priors.add(new Prior(x_center, y_center, w*ratio, h/ratio));
-                        priors.add(new Prior(x_center, y_center, w/ratio, h*ratio));
+                        priors.add(new Prior(x_center, y_center, w * ratio, h / ratio));
+                        priors.add(new Prior(x_center, y_center, w / ratio, h * ratio));
                     }
                 }
             }
@@ -124,8 +112,6 @@ public class TensorUtils {
         }
         return priors;
     }
-
-
 
 
 }
