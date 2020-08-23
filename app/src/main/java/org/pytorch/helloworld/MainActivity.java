@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     Paint rectPaint = new Paint();
     Paint textPaint = new Paint();
-    float scale;
+//    float scale;
 
     BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
 
@@ -77,8 +77,9 @@ public class MainActivity extends AppCompatActivity {
         rectPaint.setStyle(Paint.Style.STROKE);
         rectPaint.setColor(Color.RED);
         textPaint.setColor(Color.DKGRAY);
-        scale = getResources().getDisplayMetrics().density;
-        textPaint.setTextSize(20 * scale);
+//        float scale = getResources().getDisplayMetrics().density;
+//        textPaint.setTextSize(20 * scale);
+        textPaint.setTextSize(40);
         bitmapOptions.inMutable = true;
 
         try {
@@ -102,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
         Canvas canvas = new Canvas(bitmap);
         for (Box box : boxes) {
             canvas.drawRect(box.getTopLeftX(), box.getTopLeftY(), box.getBotRightX(), box.getBotRightY(), rectPaint);
-            canvas.drawText(Config.classes[box.getMaxIndex()], box.getTopLeftX() + 20, box.getTopLeftY() + 40, textPaint);
+            String text = String.format("Class: %s; Probability: %.2f", Config.classes[box.getMaxIndex()], box.getMaxProbability());
+            canvas.drawText(text, box.getTopLeftX() + 20, box.getTopLeftY() + 40, textPaint);
         }
         imageView.setImageBitmap(bitmap);
     }
@@ -114,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<Box> predictImageClasses(Bitmap bitmap) {
         int originalImageWidth = bitmap.getWidth();
         int originalImageHeight = bitmap.getHeight();
-        final float probabilityThreshold = 0.01f, iouThreshold = 0.45f;
+        final float probabilityThreshold = 0.2f, iouThreshold = 0.45f;
 
         Bitmap scaledBitmap = scaleBitmapImage(bitmap);
         final Tensor inputTensor = TensorImageUtils.bitmapToFloat32Tensor(scaledBitmap, Config.mean, Config.std);
@@ -187,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<Box> boxes = predictImageClasses(selectedImage);
                 drawRectangles(boxes, selectedImage);
 
-                Toast.makeText(MainActivity.this, "Everything is ok!", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this, "Everything is ok!", Toast.LENGTH_LONG).show();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
