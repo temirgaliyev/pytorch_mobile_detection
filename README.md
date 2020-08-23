@@ -1,10 +1,10 @@
 # Detection with pytorch mobile
 *Probably first open-source mobile detection on pytorch*
 
-[Description](##-description)  
-[Why it's low-accuracy?](##-why-it's-low-accuracy)  
-[TODO](##-todo)  
-[Links](##-links)
+[Description](#description)  
+[Why it's low-accuracy?](#why-its-low-accuracy)  
+[TODO](#todo)  
+[Links](#links)
 
 ## Description
 Most of the [detection ops](https://pytorch.org/docs/stable/torchvision/ops.html) not implemented in pytorch mobile. 
