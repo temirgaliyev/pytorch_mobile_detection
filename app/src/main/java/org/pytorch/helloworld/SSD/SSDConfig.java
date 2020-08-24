@@ -1,8 +1,8 @@
-package org.pytorch.helloworld;
+package org.pytorch.helloworld.SSD;
 
 import java.util.ArrayList;
 
-public class Config {
+public class SSDConfig {
     public static final float[] mean = new float[]{0f, 0f, 0f};
     public static final float[] std = new float[]{1f, 1f, 1f};
     public static final float centerVariance = 0.1f;
@@ -19,7 +19,7 @@ public class Config {
             new SSDSpec(1, 300, new SSDBoxSizes(285, 330), new int[]{2, 3})
     };
 
-    public static final ArrayList<Prior> priors = TensorUtils.generateSSDPriors(specs, size);
+    public static final ArrayList<Prior> priors = SSDUtils.generateSSDPriors(specs, size);
 
     public static String[] classes = new String[]{
             "BACKGROUND", "aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car",

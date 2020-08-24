@@ -1,6 +1,7 @@
-package org.pytorch.helloworld;
+package org.pytorch.helloworld.SSD;
 
-class SSDSpec {
+
+public class SSDSpec {
     private int featureMapSize;
     private int shrinkage;
     private SSDBoxSizes boxSizes;
@@ -27,22 +28,5 @@ class SSDSpec {
 
     public int[] getAspectRatios() {
         return aspectRatios;
-    }
-}
-
-class SSDBoxSizes {
-    private int min, max;
-
-    public SSDBoxSizes(int min, int max) {
-        this.min = min;
-        this.max = max;
-    }
-
-    public int getMin() {
-        return min;
-    }
-
-    public int getMax() {
-        return max;
     }
 }

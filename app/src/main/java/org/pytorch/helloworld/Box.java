@@ -3,7 +3,7 @@ package org.pytorch.helloworld;
 import java.util.Comparator;
 import java.util.List;
 
-class Box {
+public class Box {
     public static Comparator boxesComparator = new Comparator<Box>() {
         @Override
         public int compare(Box box1, Box box2) {

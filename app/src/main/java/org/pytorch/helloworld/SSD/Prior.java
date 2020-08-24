@@ -1,4 +1,4 @@
-package org.pytorch.helloworld;
+package org.pytorch.helloworld.SSD;
 
 public class Prior {
 
