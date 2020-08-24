@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.temirgaliyev.detection.DETR.DETR;
+import com.temirgaliyev.detection.SSD.SSD;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,34 +28,37 @@ import static com.temirgaliyev.detection.Utils.millisToShortDHMS;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = "MAIN_ACTIVITY";
-
     private static final int RESULT_LOAD_IMG = 0xAAA;
+
     ImageView imageView;
-    TextView textView;
+    TextView inferenceTextView;
+    Button changeModelButton;
+
     BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-    AbstractDetection detector;
+
+    DetectionModel detectionModel = DetectionModel.SSD;
+    AbstractDetection detector, detr, ssd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        changeModelButton = findViewById(R.id.modelButton);
         imageView = findViewById(R.id.imageView);
-        textView = findViewById(R.id.textView);
+        inferenceTextView = findViewById(R.id.inferenceTextView);
 
         bitmapOptions.inMutable = true;
 
         initUtils();
-//        detector = new SSD();
-        detector = new DETR();
+        changeDetector();
 
         try {
-            detector.loadModule(this);
             Bitmap bitmap = BitmapFactory.decodeStream(getAssets().open("image.jpg"), null, bitmapOptions);
             ArrayList<Box> boxes = detector.predict(bitmap);
             drawRectangles(boxes, bitmap);
             imageView.setImageBitmap(bitmap);
-            textView.setText(String.format("Inference time: %s", millisToShortDHMS(detector.getInferenceTime())));
+            inferenceTextView.setText(String.format("Inference time: %s", millisToShortDHMS(detector.getInferenceTime())));
 
         } catch (IOException e) {
             Log.e(TAG, "Error reading assets", e);
@@ -61,13 +66,32 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
-    public void onGalleryClick(View view) {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+    public void changeDetector(){
+        if (detectionModel == DetectionModel.DETR){
+            if (detr == null){
+                detr = new DETR();
+                try {
+                    detr.loadModule(this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            detector = detr;
+            changeModelButton.setText(R.string.detr);
+        } else{
+            if (ssd == null){
+                ssd = new SSD();
+                try {
+                    ssd.loadModule(this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            detector = ssd;
+            changeModelButton.setText(R.string.ssd);
+        }
     }
+
 
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
@@ -83,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<Box> boxes = detector.predict(selectedImage);
                 drawRectangles(boxes, selectedImage);
                 imageView.setImageBitmap(selectedImage);
-                textView.setText(String.format("Inference time: %s", millisToShortDHMS(detector.getInferenceTime())));
+                inferenceTextView.setText(String.format("Inference time: %s", millisToShortDHMS(detector.getInferenceTime())));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
@@ -92,5 +116,19 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(MainActivity.this, "You haven't picked Image", Toast.LENGTH_LONG).show();
         }
+    }
+
+
+    public void onGalleryClick(View view) {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+    }
+
+
+    public void onModelClick(View view) {
+        detectionModel = detectionModel.next();
+        changeDetector();
+        Toast.makeText(this, String.format("Changed detector to: %s", detectionModel), Toast.LENGTH_SHORT).show();
     }
 }

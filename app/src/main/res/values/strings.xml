@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Detection</string>
-    <string name="gallery">Gallery</string>
     <string name="detected_image">Detected image</string>
+    <string name="gallery">Gallery</string>
+    <string name="ssd">SSD</string>
+    <string name="detr">DETR</string>
 </resources>
