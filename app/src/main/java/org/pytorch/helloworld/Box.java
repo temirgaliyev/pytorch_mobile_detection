@@ -17,6 +17,7 @@ public class Box {
     private float[] scores;
     private float maxProbability;
     private int maxIndex;
+    private String cls = "N/A";
 
     private Box(float centerX, float centerY, float width, float height, float[] scores) {
         this.centerX = centerX;
@@ -112,6 +113,14 @@ public class Box {
 
     public float[] getScores() {
         return scores;
+    }
+
+    public String getCls() {
+        return cls;
+    }
+
+    public void setCls(String cls) {
+        this.cls = cls;
     }
 
     public float getMaxProbability() {

@@ -1,8 +1,6 @@
 package org.pytorch.helloworld.SSD;
 
 import org.pytorch.helloworld.Box;
-import org.pytorch.helloworld.SSD.Prior;
-import org.pytorch.helloworld.SSD.SSDSpec;
 
 import java.util.ArrayList;
 import java.util.Collections;
