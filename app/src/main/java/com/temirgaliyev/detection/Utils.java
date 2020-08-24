@@ -1,4 +1,4 @@
-package org.pytorch.helloworld;
+package com.temirgaliyev.detection;
 
 import android.content.Context;
 import android.graphics.Bitmap;

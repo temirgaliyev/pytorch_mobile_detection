@@ -1,4 +1,4 @@
-package org.pytorch.helloworld;
+package com.temirgaliyev.detection;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,16 +13,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.pytorch.helloworld.DETR.DETR;
+import com.temirgaliyev.detection.DETR.DETR;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import static org.pytorch.helloworld.Utils.drawRectangles;
-import static org.pytorch.helloworld.Utils.initUtils;
-import static org.pytorch.helloworld.Utils.millisToShortDHMS;
+import static com.temirgaliyev.detection.Utils.drawRectangles;
+import static com.temirgaliyev.detection.Utils.initUtils;
+import static com.temirgaliyev.detection.Utils.millisToShortDHMS;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = "MAIN_ACTIVITY";

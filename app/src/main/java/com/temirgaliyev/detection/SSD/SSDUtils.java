@@ -1,6 +1,6 @@
-package org.pytorch.helloworld.SSD;
+package com.temirgaliyev.detection.SSD;
 
-import org.pytorch.helloworld.Box;
+import com.temirgaliyev.detection.Box;
 
 import java.util.ArrayList;
 import java.util.Collections;

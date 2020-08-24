@@ -1,4 +1,4 @@
-package org.pytorch.helloworld.SSD;
+package com.temirgaliyev.detection.SSD;
 
 
 public class SSDSpec {

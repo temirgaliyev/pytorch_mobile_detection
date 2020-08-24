@@ -1,4 +1,4 @@
-package org.pytorch.helloworld;
+package com.temirgaliyev.detection;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,13 +6,13 @@ import android.graphics.Bitmap;
 import org.pytorch.IValue;
 import org.pytorch.Module;
 import org.pytorch.Tensor;
-import org.pytorch.helloworld.SSD.SSDUtils;
+import com.temirgaliyev.detection.SSD.SSDUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.pytorch.helloworld.Utils.assetFilePath;
+import static com.temirgaliyev.detection.Utils.assetFilePath;
 
 public abstract class AbstractDetection {
     private Module module;

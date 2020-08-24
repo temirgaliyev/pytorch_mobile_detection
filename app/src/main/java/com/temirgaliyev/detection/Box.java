@@ -1,4 +1,4 @@
-package org.pytorch.helloworld;
+package com.temirgaliyev.detection;
 
 import java.util.Comparator;
 import java.util.List;

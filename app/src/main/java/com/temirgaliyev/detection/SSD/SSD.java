@@ -1,24 +1,23 @@
-package org.pytorch.helloworld.SSD;
+package com.temirgaliyev.detection.SSD;
 
 import android.graphics.Bitmap;
 
 import org.pytorch.IValue;
 import org.pytorch.Tensor;
-import org.pytorch.helloworld.AbstractDetection;
-import org.pytorch.helloworld.Box;
+import com.temirgaliyev.detection.AbstractDetection;
+import com.temirgaliyev.detection.Box;
 import org.pytorch.torchvision.TensorImageUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 
-import static org.pytorch.helloworld.SSD.SSDConfig.IMAGE_SIZE;
-import static org.pytorch.helloworld.SSD.SSDConfig.IOU_THRESHOLD;
-import static org.pytorch.helloworld.SSD.SSDConfig.NORMALIZATION_MEAN;
-import static org.pytorch.helloworld.SSD.SSDConfig.NORMALIZATION_STD;
-import static org.pytorch.helloworld.SSD.SSDConfig.PROBABILITY_THRESHOLD;
-import static org.pytorch.helloworld.SSD.SSDConfig.CLASSES;
-import static org.pytorch.helloworld.Utils.resize;
+import static com.temirgaliyev.detection.SSD.SSDConfig.IMAGE_SIZE;
+import static com.temirgaliyev.detection.SSD.SSDConfig.IOU_THRESHOLD;
+import static com.temirgaliyev.detection.SSD.SSDConfig.NORMALIZATION_MEAN;
+import static com.temirgaliyev.detection.SSD.SSDConfig.NORMALIZATION_STD;
+import static com.temirgaliyev.detection.SSD.SSDConfig.PROBABILITY_THRESHOLD;
+import static com.temirgaliyev.detection.SSD.SSDConfig.CLASSES;
+import static com.temirgaliyev.detection.Utils.resize;
 
 public class SSD extends AbstractDetection {
 

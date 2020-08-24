@@ -1,4 +1,4 @@
-package org.pytorch.helloworld.SSD;
+package com.temirgaliyev.detection.SSD;
 
 import java.util.ArrayList;
 

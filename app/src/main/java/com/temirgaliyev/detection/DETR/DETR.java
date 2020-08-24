@@ -1,25 +1,22 @@
-package org.pytorch.helloworld.DETR;
+package com.temirgaliyev.detection.DETR;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import org.pytorch.IValue;
 import org.pytorch.Tensor;
-import org.pytorch.helloworld.AbstractDetection;
-import org.pytorch.helloworld.Box;
-import org.pytorch.helloworld.SSD.SSDUtils;
+import com.temirgaliyev.detection.AbstractDetection;
+import com.temirgaliyev.detection.Box;
+
 import org.pytorch.torchvision.TensorImageUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 
-import static org.pytorch.helloworld.DETR.DETRConfig.IMAGE_SIZE;
-import static org.pytorch.helloworld.DETR.DETRConfig.NORMALIZATION_MEAN;
-import static org.pytorch.helloworld.DETR.DETRConfig.NORMALIZATION_STD;
-import static org.pytorch.helloworld.DETR.DETRConfig.CLASSES;
-import static org.pytorch.helloworld.DETR.DETRConfig.PROBABILITY_THRESHOLD;
-import static org.pytorch.helloworld.Utils.resize;
+import static com.temirgaliyev.detection.DETR.DETRConfig.IMAGE_SIZE;
+import static com.temirgaliyev.detection.DETR.DETRConfig.NORMALIZATION_MEAN;
+import static com.temirgaliyev.detection.DETR.DETRConfig.NORMALIZATION_STD;
+import static com.temirgaliyev.detection.DETR.DETRConfig.CLASSES;
+import static com.temirgaliyev.detection.DETR.DETRConfig.PROBABILITY_THRESHOLD;
+import static com.temirgaliyev.detection.Utils.resize;
 
 public class DETR extends AbstractDetection {
     private final String TAG = "DETR_CLASS";

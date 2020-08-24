@@ -1,4 +1,4 @@
-package org.pytorch.helloworld.DETR;
+package com.temirgaliyev.detection.DETR;
 
 public class DETRConfig {
 
