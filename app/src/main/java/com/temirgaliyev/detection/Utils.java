@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
+    private static String TAG = "UTILS";
     private static Paint rectPaint = new Paint();
     private static Paint textPaint = new Paint();
 
@@ -25,7 +27,7 @@ public class Utils {
         textPaint.setColor(Color.DKGRAY);
 //        float scale = getResources().getDisplayMetrics().density;
 //        textPaint.setTextSize(20 * scale);
-        textPaint.setTextSize(40);
+//        textPaint.setTextSize(40);
     }
 
     public static void drawRectangles(ArrayList<Box> boxes, Bitmap bitmap) {
@@ -33,6 +35,8 @@ public class Utils {
         for (Box box : boxes) {
             canvas.drawRect(box.getTopLeftX(), box.getTopLeftY(), box.getBotRightX(), box.getBotRightY(), rectPaint);
             String text = String.format("%s: %.2f", box.getCls(), box.getMaxProbability());
+            textPaint.setTextSize(Math.max(bitmap.getWidth()/25, 50));
+            Log.d(TAG, "Text size: " + bitmap.getWidth()/25);
             canvas.drawText(text, box.getTopLeftX() + 20, box.getTopLeftY() + 40, textPaint);
         }
     }

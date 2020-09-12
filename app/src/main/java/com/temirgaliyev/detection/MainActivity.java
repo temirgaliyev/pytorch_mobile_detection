@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import static com.temirgaliyev.detection.TestingSSD.Main.runTesting;
 import static com.temirgaliyev.detection.Utils.drawRectangles;
 import static com.temirgaliyev.detection.Utils.initUtils;
 import static com.temirgaliyev.detection.Utils.millisToShortDHMS;
@@ -36,13 +37,18 @@ public class MainActivity extends AppCompatActivity {
 
     BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
 
-    DetectionModel detectionModel = DetectionModel.SSD;
+    DetectionModelEnum detectionModel = DetectionModelEnum.SSD;
     AbstractDetection detector, detr, ssd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        try {
+//            runTesting(this, imageView);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         changeModelButton = findViewById(R.id.modelButton);
         imageView = findViewById(R.id.imageView);
@@ -67,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeDetector(){
-        if (detectionModel == DetectionModel.DETR){
+        if (detectionModel == DetectionModelEnum.DETR){
             if (detr == null){
                 detr = new DETR();
                 try {

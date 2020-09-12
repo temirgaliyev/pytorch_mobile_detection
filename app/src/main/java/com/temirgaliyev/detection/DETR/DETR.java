@@ -42,7 +42,7 @@ public class DETR extends AbstractDetection {
         Tensor inputTensor = transform(bitmap);
 
         final IValue[] outputTensor = forward(inputTensor).toTuple();
-        final long NUM_CLASSES = outputTensor[0].toTensor().shape()[2];
+        final int NUM_CLASSES = (int) outputTensor[0].toTensor().shape()[2];
         ArrayList<Box> boxes = postprocess(outputTensor, NUM_CLASSES);
 
         ArrayList<Box> pickedBoxes = new ArrayList<>();

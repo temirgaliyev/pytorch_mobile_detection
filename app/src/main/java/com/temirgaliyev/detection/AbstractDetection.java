@@ -15,6 +15,8 @@ import java.util.Arrays;
 import static com.temirgaliyev.detection.Utils.assetFilePath;
 
 public abstract class AbstractDetection {
+    private static String TAG = "ABSTRACT_DETECTION";
+
     private Module module;
     private long inferenceTime;
     protected String moduleName;
@@ -31,7 +33,7 @@ public abstract class AbstractDetection {
         return output;
     }
 
-    public ArrayList<Box> postprocess(IValue[] outputTensor, long NUM_CLASSES){
+    public ArrayList<Box> postprocess(IValue[] outputTensor, int NUM_CLASSES){
         float[] confidencesTensor = outputTensor[0].toTensor().getDataAsFloatArray();
         long[] confidencesShape = outputTensor[0].toTensor().shape();
         float[] locationsTensor = outputTensor[1].toTensor().getDataAsFloatArray();
@@ -40,11 +42,12 @@ public abstract class AbstractDetection {
         ArrayList<Box> locations = new ArrayList<>();
 
         for (int i = 0; i < confidencesShape[1]; i++) {
-            int confidencesFrom = (int) (i * NUM_CLASSES);
-            int confidencesTo = (int) (confidencesFrom + NUM_CLASSES);
+//            int confidencesFrom = (int) (i * NUM_CLASSES);
+//            int confidencesTo = (int) (confidencesFrom + NUM_CLASSES+1);
+//            float[] confidence = Arrays.copyOfRange(confidencesTensor, confidencesFrom, confidencesTo);
 
-            float[] confidence = Arrays.copyOfRange(confidencesTensor, confidencesFrom, confidencesTo);
-            float[] softmaxScores = SSDUtils.softmax(confidence);
+            float[] softmaxScores = SSDUtils.softmax(confidencesTensor,
+                    i * NUM_CLASSES, (i+1)*NUM_CLASSES);
 
             int locationsFrom = (int) (i * locationsShape[2]);
             Box location = Box.fromCentered(

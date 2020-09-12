@@ -4,7 +4,7 @@ public class DETRConfig {
 
     static final float[] NORMALIZATION_MEAN = new float[]{0.485f, 0.456f, 0.406f};
     static final float[] NORMALIZATION_STD = new float[]{0.229f, 0.224f, 0.225f};
-    static final int IMAGE_SIZE = 800;
+    static final int IMAGE_SIZE = 256;
     static final float PROBABILITY_THRESHOLD = 0.7f;
 
     static final String[] CLASSES = new String[]{
