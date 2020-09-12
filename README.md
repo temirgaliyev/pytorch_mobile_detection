@@ -28,6 +28,7 @@ I think, it might be quantization issue (double→float) or differences of imple
   - [x] Non-maximum suppression
 - [x] Draw boxes on image
 - [ ] Real-time object detection
+- [ ] Upload models weights to storage and write downloading script
 
 ## Links
 [Pytorch: Pytorch Mobile](https://pytorch.org/mobile/android/)  
