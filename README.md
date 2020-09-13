@@ -33,4 +33,5 @@ I think, it might be quantization issue (double→float) or differences of imple
 ## Links
 [Pytorch: Pytorch Mobile](https://pytorch.org/mobile/android/)  
 [Github: PyTorch Android Examples](https://github.com/pytorch/android-demo-app)  
-[Github: Pytorch SSD](https://github.com/qfgaohao/pytorch-ssd)
+[Github: Pytorch SSD](https://github.com/qfgaohao/pytorch-ssd)  
+[Github: Android Camera2 API Example](https://github.com/Jiankai-Sun/Android-Camera2-API-Example)
