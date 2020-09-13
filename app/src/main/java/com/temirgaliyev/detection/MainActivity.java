@@ -22,15 +22,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import static com.temirgaliyev.detection.TestingSSD.Main.runTesting;
 import static com.temirgaliyev.detection.Utils.drawRectangles;
 import static com.temirgaliyev.detection.Utils.initUtils;
 import static com.temirgaliyev.detection.Utils.millisToShortDHMS;
 
 public class MainActivity extends AppCompatActivity {
-    private final String TAG = "MAIN_ACTIVITY";
     private static final int RESULT_LOAD_IMG = 0xAAA;
-
+    private final String TAG = "MAIN_ACTIVITY";
     ImageView imageView;
     TextView inferenceTextView;
     Button changeModelButton;
@@ -61,20 +59,23 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             Bitmap bitmap = BitmapFactory.decodeStream(getAssets().open("image.jpg"), null, bitmapOptions);
-            ArrayList<Box> boxes = detector.predict(bitmap);
-            drawRectangles(boxes, bitmap);
-            imageView.setImageBitmap(bitmap);
-            inferenceTextView.setText(String.format("Inference time: %s", millisToShortDHMS(detector.getInferenceTime())));
-
+            predictAndShow(bitmap);
         } catch (IOException e) {
             Log.e(TAG, "Error reading assets", e);
             finish();
         }
     }
 
-    public void changeDetector(){
-        if (detectionModel == DetectionModelEnum.DETR){
-            if (detr == null){
+    private void predictAndShow(Bitmap bitmap) {
+        ArrayList<Box> boxes = detector.predict(bitmap);
+        drawRectangles(boxes, bitmap);
+        imageView.setImageBitmap(bitmap);
+        inferenceTextView.setText(String.format("Inference time: %s", millisToShortDHMS(detector.getInferenceTime())));
+    }
+
+    public void changeDetector() {
+        if (detectionModel == DetectionModelEnum.DETR) {
+            if (detr == null) {
                 detr = new DETR();
                 try {
                     detr.loadModule(this);
@@ -84,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
             }
             detector = detr;
             changeModelButton.setText(R.string.detr);
-        } else{
-            if (ssd == null){
+        } else {
+            if (ssd == null) {
                 ssd = new SSD();
                 try {
                     ssd.loadModule(this);
@@ -110,10 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream, null, bitmapOptions);
                 assert selectedImage != null;
-                ArrayList<Box> boxes = detector.predict(selectedImage);
-                drawRectangles(boxes, selectedImage);
-                imageView.setImageBitmap(selectedImage);
-                inferenceTextView.setText(String.format("Inference time: %s", millisToShortDHMS(detector.getInferenceTime())));
+                predictAndShow(selectedImage);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
