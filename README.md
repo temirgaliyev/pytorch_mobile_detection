@@ -29,6 +29,7 @@ I think, it might be quantization issue (double→float) or differences of imple
 - [x] Draw boxes on image
 - [ ] Real-time object detection
 - [ ] Upload models weights to storage and write downloading script
+- [ ] Quantize models (now DETR model params weights 158MB)
 
 ## Links
 [Pytorch: Pytorch Mobile](https://pytorch.org/mobile/android/)  
