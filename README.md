@@ -27,8 +27,9 @@ Checked preprocessing and made so that input tensors in python and java was exac
   - [x] Locations to boxes convertation
   - [x] Non-maximum suppression
 - [x] Draw boxes on image
+- [x] Non real-time object detection (Capture image from camera)
 - [ ] Real-time object detection
-- [ ] Upload models weights to storage and write downloading script
+- [x] Upload models weights to storage and write downloading script
 - [ ] Quantize models (now DETR model params weights 158MB)
 
 ## Links
