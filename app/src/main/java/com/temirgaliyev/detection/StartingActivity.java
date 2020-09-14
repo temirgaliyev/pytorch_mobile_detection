@@ -12,6 +12,10 @@ import com.temirgaliyev.detection.Detection.DETR.DETR;
 import java.io.File;
 import java.io.StringReader;
 
+import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_ACTION_TYPE;
+import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_FILENAME;
+import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_FILE_URL;
+
 public class StartingActivity extends AppCompatActivity {
 
     private static final String TAG = "STARTING_ACTIVITY";
@@ -33,9 +37,10 @@ public class StartingActivity extends AppCompatActivity {
 
         File file = new File(filePath);
         if (!file.exists()){
-            Intent intent = new Intent(this, DownloadActivity.class);
-            intent.putExtra(DownloadActivity.EXTRA_FILE_URL, fileURL);
-            intent.putExtra(DownloadActivity.EXTRA_FILENAME, filePath);
+            Intent intent = new Intent(this, ProgressBarActivity.class);
+            intent.putExtra(EXTRA_ACTION_TYPE, "download");
+            intent.putExtra(EXTRA_FILE_URL, fileURL);
+            intent.putExtra(EXTRA_FILENAME, filePath);
             startActivityForResult(intent, REQUEST_CODE_DETR);
         } else{
             Intent intent = new Intent(StartingActivity.this, ImageCapturingActivity.class);

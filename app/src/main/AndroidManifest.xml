@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DownloadActivity"></activity>
+        <activity android:name=".ProgressBarActivity" />
         <activity android:name=".NonRealTimeDetectionActivity" />
         <activity android:name=".ImageCapturingActivity" />
         <activity android:name=".RealTimeDetectionActivity" />
