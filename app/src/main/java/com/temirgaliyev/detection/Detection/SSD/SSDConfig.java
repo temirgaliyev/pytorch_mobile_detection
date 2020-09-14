@@ -1,4 +1,4 @@
-package com.temirgaliyev.detection.SSD;
+package com.temirgaliyev.detection.Detection.SSD;
 
 import java.util.ArrayList;
 

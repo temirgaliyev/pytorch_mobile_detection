@@ -1,4 +1,4 @@
-package com.temirgaliyev.detection.DETR;
+package com.temirgaliyev.detection.Detection.DETR;
 
 public class DETRConfig {
 

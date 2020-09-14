@@ -1,6 +1,6 @@
-package com.temirgaliyev.detection.SSD;
+package com.temirgaliyev.detection.Detection.SSD;
 
-import com.temirgaliyev.detection.Box;
+import com.temirgaliyev.detection.Detection.Box;
 
 import java.util.ArrayList;
 import java.util.Collections;

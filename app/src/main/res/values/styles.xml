@@ -8,4 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="inferenceTimeTextViewStyle" parent="TextAppearance.AppCompat.Small">
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:background">@drawable/inference_time_textview_background</item>
+    </style>
+
+    <color name="textColor">@android:color/white</color>
 </resources>

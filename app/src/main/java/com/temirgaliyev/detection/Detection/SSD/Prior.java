@@ -1,4 +1,4 @@
-package com.temirgaliyev.detection.SSD;
+package com.temirgaliyev.detection.Detection.SSD;
 
 public class Prior {
 

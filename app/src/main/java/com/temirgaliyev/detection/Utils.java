@@ -4,8 +4,16 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.media.ExifInterface;
 import android.util.Log;
+
+import com.temirgaliyev.detection.Detection.AbstractDetection;
+import com.temirgaliyev.detection.Detection.Box;
+import com.temirgaliyev.detection.Detection.DETR.DETR;
+import com.temirgaliyev.detection.Detection.DetectionModelEnum;
+import com.temirgaliyev.detection.Detection.SSD.SSD;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,6 +37,49 @@ public class Utils {
 //        textPaint.setTextSize(20 * scale);
 //        textPaint.setTextSize(40);
     }
+
+    public static Bitmap rotateBitmap(Bitmap bitmap, int orientation) {
+
+        Matrix matrix = new Matrix();
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
+                matrix.setScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                matrix.setRotate(180);
+                break;
+            case ExifInterface.ORIENTATION_FLIP_VERTICAL:
+                matrix.setRotate(180);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_TRANSPOSE:
+                matrix.setRotate(90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                matrix.setRotate(90);
+                break;
+            case ExifInterface.ORIENTATION_TRANSVERSE:
+                matrix.setRotate(-90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                matrix.setRotate(-90);
+                break;
+            default:
+                return bitmap;
+        }
+        try {
+            Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            bitmap.recycle();
+            return bmRotated;
+        }
+        catch (OutOfMemoryError e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     public static void drawRectangles(ArrayList<Box> boxes, Bitmap bitmap) {
         Canvas canvas = new Canvas(bitmap);
@@ -91,6 +142,41 @@ public class Utils {
                 TimeUnit.SECONDS.toMillis(TimeUnit.MILLISECONDS.toSeconds(duration));
 
         return String.format("%02d.%04d seconds", seconds, millis);
+    }
+
+    private static AbstractDetection detr, ssd;
+
+    public static AbstractDetection getDetector(Context context,
+                                                DetectionModelEnum detectionModelEnum){
+        AbstractDetection detector;
+        if (detectionModelEnum == DetectionModelEnum.DETR){
+            if (detr == null) {
+                detr = new DETR(context.getExternalCacheDir());
+                detr.loadModule();
+            }
+            detector = detr;
+        } else {
+            if (ssd == null) {
+                ssd = new SSD(context.getExternalCacheDir());
+                ssd.loadModule();
+            }
+            detector = ssd;
+        }
+
+        return detector;
+    }
+
+
+    public static int getImageOrientation(String filename){
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert exif != null;
+        return exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                ExifInterface.ORIENTATION_UNDEFINED);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.temirgaliyev.detection.SSD;
+package com.temirgaliyev.detection.Detection.SSD;
 
 public class SSDBoxSizes {
     private int min, max;

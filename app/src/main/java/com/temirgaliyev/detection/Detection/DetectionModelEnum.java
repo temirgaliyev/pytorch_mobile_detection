@@ -1,4 +1,4 @@
-package com.temirgaliyev.detection;
+package com.temirgaliyev.detection.Detection;
 
 public enum DetectionModelEnum {
     DETR, SSD;

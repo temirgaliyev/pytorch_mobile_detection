@@ -1,4 +1,4 @@
-package com.temirgaliyev.detection;
+package com.temirgaliyev.detection.Detection;
 
 import java.util.Comparator;
 import java.util.List;

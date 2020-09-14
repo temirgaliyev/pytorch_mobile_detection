@@ -1,32 +1,32 @@
-package com.temirgaliyev.detection.SSD;
+package com.temirgaliyev.detection.Detection.SSD;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import org.pytorch.IValue;
 import org.pytorch.Tensor;
-import com.temirgaliyev.detection.AbstractDetection;
-import com.temirgaliyev.detection.Box;
+import com.temirgaliyev.detection.Detection.AbstractDetection;
+import com.temirgaliyev.detection.Detection.Box;
 import org.pytorch.torchvision.TensorImageUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import static com.temirgaliyev.detection.SSD.SSDConfig.IMAGE_SIZE;
-import static com.temirgaliyev.detection.SSD.SSDConfig.IOU_THRESHOLD;
-import static com.temirgaliyev.detection.SSD.SSDConfig.NORMALIZATION_MEAN;
-import static com.temirgaliyev.detection.SSD.SSDConfig.NORMALIZATION_STD;
-import static com.temirgaliyev.detection.SSD.SSDConfig.PRIORS;
-import static com.temirgaliyev.detection.SSD.SSDConfig.PROBABILITY_THRESHOLD;
-import static com.temirgaliyev.detection.SSD.SSDConfig.CLASSES;
+import static com.temirgaliyev.detection.Detection.SSD.SSDConfig.IMAGE_SIZE;
+import static com.temirgaliyev.detection.Detection.SSD.SSDConfig.IOU_THRESHOLD;
+import static com.temirgaliyev.detection.Detection.SSD.SSDConfig.NORMALIZATION_MEAN;
+import static com.temirgaliyev.detection.Detection.SSD.SSDConfig.NORMALIZATION_STD;
+import static com.temirgaliyev.detection.Detection.SSD.SSDConfig.PROBABILITY_THRESHOLD;
+import static com.temirgaliyev.detection.Detection.SSD.SSDConfig.CLASSES;
 import static com.temirgaliyev.detection.Utils.resize;
 
 public class SSD extends AbstractDetection {
     private static final String TAG = "SSD_CLASS";
+    public final static String WEIGHTS_PATH_NAME  = "model_detection_ssd.pt";
+    public final static String WEIGHTS_URL = "https://s3.eu-central-1.amazonaws.com/yela.static/model_detection_ssd.pt";
 
-    public SSD(){
-        moduleName = "model_detection_ssd.pt";
-//        moduleName = "trace_model2.pt";
+    public SSD(File externalCacheDir){
+        modulePath = externalCacheDir + "/" + WEIGHTS_PATH_NAME;
     }
 
     @Override

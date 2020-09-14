@@ -4,6 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#7A86DB"
     tools:context=".StartingActivity">
+
+    <Button
+        android:id="@+id/rtODBUtton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#80D3D1D1"
+        android:minWidth="150dp"
+        android:onClick="onRTButtonClick"
+        android:text="Real-time"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65" />
+
+    <Button
+        android:id="@+id/nonrtODButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#80D3D1D1"
+        android:minWidth="150dp"
+        android:onClick="onNonRTButtonClick"
+        android:text="Non real-time"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Real-time object detection\nless accurate but faster \n uses\nSSD: Single Shot MultiBox Detector"
+        android:textColor="#D7000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/rtODBUtton" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Non real-time object detection\nmore accurate but slower\n uses\nDE⫶TR: End-to-End Object Detection with Transformers"
+        android:textColor="#D7000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nonrtODButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

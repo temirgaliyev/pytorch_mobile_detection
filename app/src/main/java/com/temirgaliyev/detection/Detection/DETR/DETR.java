@@ -1,29 +1,31 @@
-package com.temirgaliyev.detection.DETR;
+package com.temirgaliyev.detection.Detection.DETR;
 
 import android.graphics.Bitmap;
 
 import org.pytorch.IValue;
 import org.pytorch.Tensor;
-import com.temirgaliyev.detection.AbstractDetection;
-import com.temirgaliyev.detection.Box;
+import com.temirgaliyev.detection.Detection.AbstractDetection;
+import com.temirgaliyev.detection.Detection.Box;
 
 import org.pytorch.torchvision.TensorImageUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 
-import static com.temirgaliyev.detection.DETR.DETRConfig.IMAGE_SIZE;
-import static com.temirgaliyev.detection.DETR.DETRConfig.NORMALIZATION_MEAN;
-import static com.temirgaliyev.detection.DETR.DETRConfig.NORMALIZATION_STD;
-import static com.temirgaliyev.detection.DETR.DETRConfig.CLASSES;
-import static com.temirgaliyev.detection.DETR.DETRConfig.PROBABILITY_THRESHOLD;
+import static com.temirgaliyev.detection.Detection.DETR.DETRConfig.IMAGE_SIZE;
+import static com.temirgaliyev.detection.Detection.DETR.DETRConfig.NORMALIZATION_MEAN;
+import static com.temirgaliyev.detection.Detection.DETR.DETRConfig.NORMALIZATION_STD;
+import static com.temirgaliyev.detection.Detection.DETR.DETRConfig.CLASSES;
+import static com.temirgaliyev.detection.Detection.DETR.DETRConfig.PROBABILITY_THRESHOLD;
 import static com.temirgaliyev.detection.Utils.resize;
 
 public class DETR extends AbstractDetection {
-    private final String TAG = "DETR_CLASS";
+    private final static String TAG = "DETR_CLASS";
+    public final static String WEIGHTS_PATH_NAME  = "model_detection_detr.pt";
+    public final static String WEIGHTS_URL = "https://s3.eu-central-1.amazonaws.com/yela.static/model_detection_detr.pt";
 
-
-    public DETR(){
-        moduleName = "model_detection_detr.pt";
+    public DETR(File externalCacheDir){
+        modulePath = externalCacheDir + "/" + WEIGHTS_PATH_NAME;
     }
 
     @Override

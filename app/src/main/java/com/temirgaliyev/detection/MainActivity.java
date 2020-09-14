@@ -14,8 +14,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.temirgaliyev.detection.DETR.DETR;
-import com.temirgaliyev.detection.SSD.SSD;
+import com.temirgaliyev.detection.Detection.AbstractDetection;
+import com.temirgaliyev.detection.Detection.Box;
+import com.temirgaliyev.detection.Detection.DetectionModelEnum;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,6 +24,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import static com.temirgaliyev.detection.Utils.drawRectangles;
+import static com.temirgaliyev.detection.Utils.getDetector;
 import static com.temirgaliyev.detection.Utils.initUtils;
 import static com.temirgaliyev.detection.Utils.millisToShortDHMS;
 
@@ -35,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
 
-    DetectionModelEnum detectionModel = DetectionModelEnum.SSD;
-    AbstractDetection detector, detr, ssd;
+    DetectionModelEnum detectionModelEnum = DetectionModelEnum.SSD;
+    AbstractDetection detector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         bitmapOptions.inMutable = true;
 
         initUtils();
-        changeDetector();
+        detector = getDetector(this, detectionModelEnum);
 
         try {
             Bitmap bitmap = BitmapFactory.decodeStream(getAssets().open("image.jpg"), null, bitmapOptions);
@@ -73,32 +75,32 @@ public class MainActivity extends AppCompatActivity {
         inferenceTextView.setText(String.format("Inference time: %s", millisToShortDHMS(detector.getInferenceTime())));
     }
 
-    public void changeDetector() {
-        if (detectionModel == DetectionModelEnum.DETR) {
-            if (detr == null) {
-                detr = new DETR();
-                try {
-                    detr.loadModule(this);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            detector = detr;
-            changeModelButton.setText(R.string.detr);
-        } else {
-            if (ssd == null) {
-                ssd = new SSD();
-                try {
-                    ssd.loadModule(this);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            detector = ssd;
-            changeModelButton.setText(R.string.ssd);
-        }
-    }
-
+//    public void changeDetector() {
+//        if (detectionModelEnum == DetectionModelEnum.DETR) {
+//            if (detr == null) {
+//                detr = new DETR();
+//                try {
+//                    detr.loadModule(this);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            detector = detr;
+//            changeModelButton.setText(R.string.detr);
+//        } else {
+//            if (ssd == null) {
+//                ssd = new SSD();
+//                try {
+//                    ssd.loadModule(this);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            detector = ssd;
+//            changeModelButton.setText(R.string.ssd);
+//        }
+//    }
+//
 
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
@@ -131,8 +133,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onModelClick(View view) {
-        detectionModel = detectionModel.next();
-        changeDetector();
-        Toast.makeText(this, String.format("Changed detector to: %s", detectionModel), Toast.LENGTH_SHORT).show();
+        detectionModelEnum = detectionModelEnum.next();
+        detector = getDetector(this, detectionModelEnum);
+        Toast.makeText(this, String.format("Changed detector to: %s", detectionModelEnum), Toast.LENGTH_SHORT).show();
     }
 }

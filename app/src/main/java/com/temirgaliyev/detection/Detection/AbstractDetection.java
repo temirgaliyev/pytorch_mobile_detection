@@ -1,4 +1,4 @@
-package com.temirgaliyev.detection;
+package com.temirgaliyev.detection.Detection;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,11 +6,10 @@ import android.graphics.Bitmap;
 import org.pytorch.IValue;
 import org.pytorch.Module;
 import org.pytorch.Tensor;
-import com.temirgaliyev.detection.SSD.SSDUtils;
+import com.temirgaliyev.detection.Detection.SSD.SSDUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static com.temirgaliyev.detection.Utils.assetFilePath;
 
@@ -19,10 +18,12 @@ public abstract class AbstractDetection {
 
     private Module module;
     private long inferenceTime;
-    protected String moduleName;
+//    protected String moduleName;
+    protected String modulePath;
 
-    public void loadModule(Context context) throws IOException {
-        module = Module.load(assetFilePath(context, moduleName));
+    public void loadModule() {
+//        module = Module.load(assetFilePath(context, moduleName));
+        module = Module.load(modulePath);
     }
 
     public IValue forward(Tensor inputTensor){
@@ -59,7 +60,6 @@ public abstract class AbstractDetection {
         return locations;
 
     }
-
 
     public abstract Tensor transform(Bitmap bitmap);
 

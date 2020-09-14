@@ -1,4 +1,4 @@
-package com.temirgaliyev.detection.TestingSSD;
+package com.temirgaliyev.detection.Detection.TestingSSD;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,9 +6,9 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.temirgaliyev.detection.Box;
-import com.temirgaliyev.detection.SSD.SSDConfig;
-import com.temirgaliyev.detection.SSD.SSDUtils;
+import com.temirgaliyev.detection.Detection.Box;
+import com.temirgaliyev.detection.Detection.SSD.SSDConfig;
+import com.temirgaliyev.detection.Detection.SSD.SSDUtils;
 
 import org.pytorch.IValue;
 import org.pytorch.Module;
@@ -18,15 +18,12 @@ import org.pytorch.torchvision.TensorImageUtils;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 
-import static com.temirgaliyev.detection.SSD.SSDConfig.CLASSES;
-import static com.temirgaliyev.detection.SSD.SSDConfig.IMAGE_SIZE;
-import static com.temirgaliyev.detection.SSD.SSDConfig.IOU_THRESHOLD;
-import static com.temirgaliyev.detection.SSD.SSDConfig.NORMALIZATION_MEAN;
-import static com.temirgaliyev.detection.SSD.SSDConfig.NORMALIZATION_STD;
-import static com.temirgaliyev.detection.SSD.SSDConfig.PROBABILITY_THRESHOLD;
+import static com.temirgaliyev.detection.Detection.SSD.SSDConfig.CLASSES;
+import static com.temirgaliyev.detection.Detection.SSD.SSDConfig.IMAGE_SIZE;
+import static com.temirgaliyev.detection.Detection.SSD.SSDConfig.IOU_THRESHOLD;
+import static com.temirgaliyev.detection.Detection.SSD.SSDConfig.PROBABILITY_THRESHOLD;
 import static com.temirgaliyev.detection.Utils.assetFilePath;
 import static com.temirgaliyev.detection.Utils.resize;
 
