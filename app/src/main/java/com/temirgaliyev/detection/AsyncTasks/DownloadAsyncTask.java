@@ -1,12 +1,9 @@
 package com.temirgaliyev.detection.AsyncTasks;
 
-import android.os.AsyncTask;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.temirgaliyev.detection.AbstractAsyncTask;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
