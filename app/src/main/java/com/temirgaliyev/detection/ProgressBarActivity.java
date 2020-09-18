@@ -18,6 +18,9 @@ public class ProgressBarActivity extends AppCompatActivity {
     private static final String TAG = "DOWNLOAD_ACTIVITY";
     // download, detection
     public static final String EXTRA_ACTION_TYPE = "com.temirgaliyev.detection.action";
+    public static final String EXTRA_ACTION_DOWNLOAD = "com.temirgaliyev.detection.action.download";
+    public static final String EXTRA_ACTION_DETECTION_DETR = "com.temirgaliyev.detection.action.detr";
+    public static final String EXTRA_ACTION_DETECTION_SSD = "com.temirgaliyev.detection.action.ssd";
 
     public static final String EXTRA_FILENAME = "com.temirgaliyev.detection.filename";
     public static final String EXTRA_FILE_URL = "com.temirgaliyev.detection.fileurl";
@@ -28,22 +31,23 @@ public class ProgressBarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download);
-        statusTextView.setText("Starting...");
 
+        statusTextView = findViewById(R.id.statusTextView);
+        statusTextView.setText("Starting...");
         progressBar = findViewById(R.id.progressBar);
         progressBar.setMax(100);
 
         String actionType = getIntent().getStringExtra(EXTRA_ACTION_TYPE);
         if (actionType == null){
             finish();
-        } else if (actionType.equals("download")){
-            createAndExecuteAsyncTask();
+        } else if (actionType.equals(EXTRA_ACTION_DOWNLOAD)){
+            createAndExecuteDownloadAsyncTask();
         } else {
             finish();
         }
     }
 
-    private void createAndExecuteAsyncTask() {
+    private void createAndExecuteDownloadAsyncTask() {
         String filename = getIntent().getStringExtra(EXTRA_FILENAME);
         String fileurl = getIntent().getStringExtra(EXTRA_FILE_URL);
 
