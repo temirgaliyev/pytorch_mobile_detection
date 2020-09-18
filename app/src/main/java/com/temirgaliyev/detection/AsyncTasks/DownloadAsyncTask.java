@@ -23,13 +23,13 @@ public class DownloadAsyncTask extends AbstractAsyncTask {
 
     @Override
     protected String doInBackground(String[] params) {
-        String fileName = params[0];
+        String outputFilename = params[0];
         String fileURL = params[1];
         try {
             setTextUI("Initializing...");
-            int lastDotPosition = fileName.lastIndexOf('/');
+            int lastDotPosition = outputFilename.lastIndexOf('/');
             if( lastDotPosition > 0 ) {
-                String folder = fileName.substring(0, lastDotPosition);
+                String folder = outputFilename.substring(0, lastDotPosition);
                 File fDir = new File(folder);
                 fDir.mkdirs();
             }
@@ -52,7 +52,7 @@ public class DownloadAsyncTask extends AbstractAsyncTask {
                 counter++;
             }
 
-            fOutput = new File(fileName);
+            fOutput = new File(outputFilename);
             if (fOutput.exists()){
                 fOutput.delete();
             }

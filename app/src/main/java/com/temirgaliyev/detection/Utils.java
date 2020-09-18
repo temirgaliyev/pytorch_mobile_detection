@@ -2,11 +2,12 @@ package com.temirgaliyev.detection;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.media.ExifInterface;
+import androidx.exifinterface.media.ExifInterface;
 import android.util.Log;
 
 import com.temirgaliyev.detection.Detection.AbstractDetection;
@@ -16,6 +17,7 @@ import com.temirgaliyev.detection.Detection.DetectionModelEnum;
 import com.temirgaliyev.detection.Detection.SSD.SSD;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +26,9 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Utils {
+
+    public static final String CAPTURED_IMAGE_NAME = "captured_img.jpg";
+    public static final String BBOXED_IMAGE_NAME = "captured_img.jpg";
 
     private static String TAG = "UTILS";
     private static Paint rectPaint = new Paint();
@@ -87,7 +92,7 @@ public class Utils {
             canvas.drawRect(box.getTopLeftX(), box.getTopLeftY(), box.getBotRightX(), box.getBotRightY(), rectPaint);
             String text = String.format("%s: %.2f", box.getCls(), box.getMaxProbability());
             textPaint.setTextSize(Math.max(bitmap.getWidth()/25, 50));
-            Log.d(TAG, "Text size: " + bitmap.getWidth()/25);
+//            Log.d(TAG, "Text size: " + bitmap.getWidth()/25);
             canvas.drawText(text, box.getTopLeftX() + 20, box.getTopLeftY() + 40, textPaint);
         }
     }
@@ -179,4 +184,16 @@ public class Utils {
                 ExifInterface.ORIENTATION_UNDEFINED);
     }
 
+
+    public static void saveBitmap(Bitmap bitmap, String filename){
+        try (FileOutputStream out = new FileOutputStream(filename)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    public static Bitmap getBitmap(String filename){
+//        return BitmapFactory.decodeFile(filename);
+//    }
 }

@@ -12,17 +12,16 @@ import android.widget.Toast;
 import com.temirgaliyev.detection.Detection.DETR.DETR;
 
 import java.io.File;
-import java.io.StringReader;
 
 import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_ACTION_DOWNLOAD;
 import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_ACTION_TYPE;
-import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_FILENAME;
+import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_OUTPUT_FILENAME;
 import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_FILE_URL;
 
 public class StartingActivity extends AppCompatActivity {
 
     private static final String TAG = "STARTING_ACTIVITY";
-    private static final int REQUEST_CODE_DETR = 100;
+    private static final int REQUEST_CODE_DOWNLOAD_DETR= 100;
     private static final int REQUEST_CODE_SSD = 100;
 
     @Override
@@ -44,8 +43,8 @@ public class StartingActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ProgressBarActivity.class);
             intent.putExtra(EXTRA_ACTION_TYPE, EXTRA_ACTION_DOWNLOAD);
             intent.putExtra(EXTRA_FILE_URL, fileURL);
-            intent.putExtra(EXTRA_FILENAME, filePath);
-            startActivityForResult(intent, REQUEST_CODE_DETR);
+            intent.putExtra(EXTRA_OUTPUT_FILENAME, filePath);
+            startActivityForResult(intent, REQUEST_CODE_DOWNLOAD_DETR);
         } else{
             Intent intent = new Intent(StartingActivity.this, ImageCapturingActivity.class);
             startActivity(intent);
@@ -57,7 +56,7 @@ public class StartingActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK){
-            if (requestCode == REQUEST_CODE_DETR) {
+            if (requestCode == REQUEST_CODE_DOWNLOAD_DETR) {
                 Intent intent = new Intent(StartingActivity.this, ImageCapturingActivity.class);
                 startActivity(intent);
             } else if (requestCode == REQUEST_CODE_SSD){

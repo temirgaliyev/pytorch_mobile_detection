@@ -44,6 +44,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.temirgaliyev.detection.Utils.CAPTURED_IMAGE_NAME;
+
 public class ImageCapturingActivity extends AppCompatActivity {
 //https://github.com/Jiankai-Sun/Android-Camera2-API-Example/blob/master/app/src/main/java/com/jack/mainactivity/MainActivity.java
 //https://stackoverflow.com/questions/26673127/android-imagereader-acquirelatestimage-returns-invalid-jpg
@@ -277,7 +279,7 @@ public class ImageCapturingActivity extends AppCompatActivity {
             // Orientation
             int rotation = getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
-            final File file = new File(getExternalCacheDir() + "/pic.jpg");
+            final File file = new File(getExternalCacheDir() + "/" + CAPTURED_IMAGE_NAME);
 
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                 @Override

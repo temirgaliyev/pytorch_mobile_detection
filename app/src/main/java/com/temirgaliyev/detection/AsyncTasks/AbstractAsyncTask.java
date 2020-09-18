@@ -1,5 +1,7 @@
 package com.temirgaliyev.detection.AsyncTasks;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ public abstract class AbstractAsyncTask extends AsyncTask<String, String, String
     protected void onPostExecute(String file_url) {
         setTextUI("Finished");
         if (activityReference != null){
+            activityReference.get().setResult(Activity.RESULT_OK);
             activityReference.get().finish();
         }
     }
@@ -50,5 +53,9 @@ public abstract class AbstractAsyncTask extends AsyncTask<String, String, String
         }
     }
 
+
+    protected Context getContext(){
+        return activityReference.get();
+    }
 
 }
