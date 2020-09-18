@@ -146,7 +146,7 @@ public class Utils {
         long millis     = TimeUnit.MILLISECONDS.toMillis(duration) -
                 TimeUnit.SECONDS.toMillis(TimeUnit.MILLISECONDS.toSeconds(duration));
 
-        return String.format("%02d.%04d seconds", seconds, millis);
+        return String.format("%02d.%02d seconds", seconds, millis);
     }
 
     private static AbstractDetection detr, ssd;

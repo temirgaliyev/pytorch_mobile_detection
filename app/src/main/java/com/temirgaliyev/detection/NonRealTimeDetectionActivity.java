@@ -28,6 +28,7 @@ import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_OUTPUT_FILENA
 import static com.temirgaliyev.detection.Utils.CAPTURED_IMAGE_NAME;
 import static com.temirgaliyev.detection.Utils.drawRectangles;
 import static com.temirgaliyev.detection.Utils.getDetector;
+import static com.temirgaliyev.detection.Utils.millisToShortDHMS;
 import static com.temirgaliyev.detection.Utils.rotateBitmap;
 import static com.temirgaliyev.detection.Utils.getImageOrientation;
 
@@ -82,7 +83,8 @@ public class NonRealTimeDetectionActivity extends AppCompatActivity {
                 inferenceEndTime = System.currentTimeMillis();
                 Bitmap bitmap = BitmapFactory.decodeFile(getExternalCacheDir() + "/" + Utils.BBOXED_IMAGE_NAME);
                 imageView.setImageBitmap(bitmap);
-                timeTextView.setText(String.format("%d ms", inferenceEndTime - inferenceStartTime));
+                timeTextView.setText(millisToShortDHMS(inferenceEndTime - inferenceStartTime));
+//                timeTextView.setText(String.format("%d ms", inferenceEndTime - inferenceStartTime));
             }
         } else {
             Toast.makeText(this, "Something went wrong...", Toast.LENGTH_SHORT).show();
