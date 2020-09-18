@@ -193,7 +193,4 @@ public class Utils {
         }
     }
 
-//    public static Bitmap getBitmap(String filename){
-//        return BitmapFactory.decodeFile(filename);
-//    }
 }
