@@ -17,6 +17,7 @@ import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_ACTION_DOWNLO
 import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_ACTION_TYPE;
 import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_OUTPUT_FILENAME;
 import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_FILE_URL;
+import static com.temirgaliyev.detection.Utils.initUtils;
 
 public class StartingActivity extends AppCompatActivity {
 
@@ -28,6 +29,8 @@ public class StartingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting);
+
+        initUtils();
     }
 
     public void onRTButtonClick(View view) {
