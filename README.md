@@ -10,8 +10,8 @@ Let me know in issues if it's not correct
 ## Description
 Most of the [detection ops](https://pytorch.org/docs/stable/torchvision/ops.html) not implemented in pytorch mobile. 
 But it's still possible to implement post-processing ops, like nms, and apply them.
-
-<img src="https://raw.githubusercontent.com/temirgaliyev/pytorch_mobile_detection/master/static/pytorch_detection_cats.png" width=30% height=30%>
+  
+<img src="https://raw.githubusercontent.com/temirgaliyev/pytorch_mobile_detection/master/static/main.png" width=25% height=25%><img src="https://raw.githubusercontent.com/temirgaliyev/pytorch_mobile_detection/master/static/downloading.png" width=25% height=25%><img src="https://raw.githubusercontent.com/temirgaliyev/pytorch_mobile_detection/master/static/capturing.png" width=25% height=25%><img src="https://raw.githubusercontent.com/temirgaliyev/pytorch_mobile_detection/master/static/result.png" width=25% height=25%>
 
 
 ## Why SSD has low accuracy?
