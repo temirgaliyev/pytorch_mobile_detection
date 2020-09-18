@@ -94,6 +94,23 @@ public class ImageCapturingActivity extends AppCompatActivity {
         }
     };
     private Handler mBackgroundHandler;
+    private final CameraCaptureSession.StateCallback captureSesstionStateCallbck = new CameraCaptureSession.StateCallback() {
+        @Override
+        public void onConfigured(@NonNull CameraCaptureSession cameraCaptureSession) {
+            //The camera is already closed
+            if (null == cameraDevice) {
+                return;
+            }
+            // When the session is ready, we start displaying the preview.
+            cameraCaptureSessions = cameraCaptureSession;
+            updatePreview();
+        }
+
+        @Override
+        public void onConfigureFailed(@NonNull CameraCaptureSession cameraCaptureSession) {
+            Toast.makeText(ImageCapturingActivity.this, "Configuration change", Toast.LENGTH_SHORT).show();
+        }
+    };
     private final CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
         @Override
         public void onOpened(@NonNull CameraDevice camera) {
@@ -111,23 +128,6 @@ public class ImageCapturingActivity extends AppCompatActivity {
         public void onError(@NonNull CameraDevice camera, int error) {
             cameraDevice.close();
             cameraDevice = null;
-        }
-    };
-    private final CameraCaptureSession.StateCallback captureSesstionStateCallbck = new CameraCaptureSession.StateCallback() {
-        @Override
-        public void onConfigured(@NonNull CameraCaptureSession cameraCaptureSession) {
-            //The camera is already closed
-            if (null == cameraDevice) {
-                return;
-            }
-            // When the session is ready, we start displaying the preview.
-            cameraCaptureSessions = cameraCaptureSession;
-            updatePreview();
-        }
-
-        @Override
-        public void onConfigureFailed(@NonNull CameraCaptureSession cameraCaptureSession) {
-            Toast.makeText(ImageCapturingActivity.this, "Configuration change", Toast.LENGTH_SHORT).show();
         }
     };
     private ImageReader imageReader;

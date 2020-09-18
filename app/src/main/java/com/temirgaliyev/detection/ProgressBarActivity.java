@@ -1,32 +1,29 @@
 package com.temirgaliyev.detection;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.temirgaliyev.detection.AsyncTasks.DetectionAsyncTask;
 import com.temirgaliyev.detection.AsyncTasks.DownloadAsyncTask;
 
 public class ProgressBarActivity extends AppCompatActivity {
 
-    TextView statusTextView;
-    ProgressBar progressBar;
-
-    private static final String TAG = "DOWNLOAD_ACTIVITY";
     // download, detection
     public static final String EXTRA_ACTION_TYPE = "com.temirgaliyev.detection.action";
     public static final String EXTRA_ACTION_DOWNLOAD = "com.temirgaliyev.detection.action.download";
     public static final String EXTRA_ACTION_DETECTION_DETR = "com.temirgaliyev.detection.action.detr";
     public static final String EXTRA_ACTION_DETECTION_SSD = "com.temirgaliyev.detection.action.ssd";
-
     public static final String EXTRA_INPUT_FILENAME = "com.temirgaliyev.detection.input_filename";
     public static final String EXTRA_OUTPUT_FILENAME = "com.temirgaliyev.detection.output_filename";
     public static final String EXTRA_FILE_URL = "com.temirgaliyev.detection.fileurl";
-
+    private static final String TAG = "DOWNLOAD_ACTIVITY";
+    TextView statusTextView;
+    ProgressBar progressBar;
     private AsyncTask<String, String, String> asyncTask;
 
     @Override
@@ -39,16 +36,16 @@ public class ProgressBarActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         String actionType = getIntent().getStringExtra(EXTRA_ACTION_TYPE);
-        if (actionType == null){
+        if (actionType == null) {
             finish();
-        } else if (actionType.equals(EXTRA_ACTION_DOWNLOAD)){
+        } else if (actionType.equals(EXTRA_ACTION_DOWNLOAD)) {
             progressBar.setMax(100);
             progressBar.setIndeterminate(false);
             createAndExecuteDownloadAsyncTask();
-        } else if (actionType.equals(EXTRA_ACTION_DETECTION_DETR)){
+        } else if (actionType.equals(EXTRA_ACTION_DETECTION_DETR)) {
             progressBar.setIndeterminate(true);
             createAndExecuteDetectionActivity();
-        } else if (actionType.equals(EXTRA_ACTION_DETECTION_SSD)){
+        } else if (actionType.equals(EXTRA_ACTION_DETECTION_SSD)) {
 
         } else {
             finish();

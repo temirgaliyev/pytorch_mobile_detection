@@ -2,13 +2,12 @@ package com.temirgaliyev.detection;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+
 import androidx.exifinterface.media.ExifInterface;
-import android.util.Log;
 
 import com.temirgaliyev.detection.Detection.AbstractDetection;
 import com.temirgaliyev.detection.Detection.Box;
@@ -17,7 +16,6 @@ import com.temirgaliyev.detection.Detection.DetectionModelEnum;
 import com.temirgaliyev.detection.Detection.SSD.SSD;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,8 +31,9 @@ public class Utils {
     private static String TAG = "UTILS";
     private static Paint rectPaint = new Paint();
     private static Paint textPaint = new Paint();
+    private static AbstractDetection detr, ssd;
 
-    public static void initUtils(){
+    public static void initUtils() {
         rectPaint.setStyle(Paint.Style.STROKE);
         rectPaint.setColor(Color.RED);
         textPaint.setColor(Color.DKGRAY);
@@ -78,39 +77,37 @@ public class Utils {
             Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             bitmap.recycle();
             return bmRotated;
-        }
-        catch (OutOfMemoryError e) {
+        } catch (OutOfMemoryError e) {
             e.printStackTrace();
             return null;
         }
     }
-
 
     public static void drawRectangles(ArrayList<Box> boxes, Bitmap bitmap) {
         Canvas canvas = new Canvas(bitmap);
         for (Box box : boxes) {
             canvas.drawRect(box.getTopLeftX(), box.getTopLeftY(), box.getBotRightX(), box.getBotRightY(), rectPaint);
             String text = String.format("%s: %.2f", box.getCls(), box.getMaxProbability());
-            textPaint.setTextSize(Math.max(bitmap.getWidth()/25, 50));
+            textPaint.setTextSize(Math.max(bitmap.getWidth() / 25, 50));
 //            Log.d(TAG, "Text size: " + bitmap.getWidth()/25);
             canvas.drawText(text, box.getTopLeftX() + 20, box.getTopLeftY() + 40, textPaint);
         }
     }
 
-    public static Bitmap resize(Bitmap bitmap, int width, int height){
+    public static Bitmap resize(Bitmap bitmap, int width, int height) {
         return Bitmap.createScaledBitmap(bitmap, width, height, true);
     }
 
-    public static Bitmap resize(Bitmap bitmap, int size){
+    public static Bitmap resize(Bitmap bitmap, int size) {
         int width;
         int height;
 
-        if (bitmap.getWidth() < bitmap.getHeight()){
+        if (bitmap.getWidth() < bitmap.getHeight()) {
             width = size;
-            height = bitmap.getHeight()*width/bitmap.getWidth();
-        } else{
+            height = bitmap.getHeight() * width / bitmap.getWidth();
+        } else {
             height = size;
-            width = bitmap.getWidth()*height/bitmap.getHeight();
+            width = bitmap.getWidth() * height / bitmap.getHeight();
         }
 
         return resize(bitmap, width, height);
@@ -141,20 +138,18 @@ public class Utils {
     }
 
     public static String millisToShortDHMS(long duration) {
-        long seconds    = TimeUnit.MILLISECONDS.toSeconds(duration) -
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(duration) -
                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration));
-        long millis     = TimeUnit.MILLISECONDS.toMillis(duration) -
+        long millis = TimeUnit.MILLISECONDS.toMillis(duration) -
                 TimeUnit.SECONDS.toMillis(TimeUnit.MILLISECONDS.toSeconds(duration));
 
         return String.format("%02d.%02d seconds", seconds, millis);
     }
 
-    private static AbstractDetection detr, ssd;
-
     public static AbstractDetection getDetector(Context context,
-                                                DetectionModelEnum detectionModelEnum){
+                                                DetectionModelEnum detectionModelEnum) {
         AbstractDetection detector;
-        if (detectionModelEnum == DetectionModelEnum.DETR){
+        if (detectionModelEnum == DetectionModelEnum.DETR) {
             if (detr == null) {
                 detr = new DETR(context.getExternalCacheDir());
                 detr.loadModule();
@@ -172,7 +167,7 @@ public class Utils {
     }
 
 
-    public static int getImageOrientation(String filename){
+    public static int getImageOrientation(String filename) {
         ExifInterface exif = null;
         try {
             exif = new ExifInterface(filename);
@@ -185,7 +180,7 @@ public class Utils {
     }
 
 
-    public static void saveBitmap(Bitmap bitmap, String filename){
+    public static void saveBitmap(Bitmap bitmap, String filename) {
         try (FileOutputStream out = new FileOutputStream(filename)) {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
         } catch (IOException e) {

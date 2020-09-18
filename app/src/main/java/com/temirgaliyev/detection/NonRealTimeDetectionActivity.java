@@ -1,8 +1,5 @@
 package com.temirgaliyev.detection;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,26 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.temirgaliyev.detection.Detection.AbstractDetection;
-import com.temirgaliyev.detection.Detection.Box;
-import com.temirgaliyev.detection.Detection.DetectionModelEnum;
-
-import org.pytorch.IValue;
-
-import java.util.ArrayList;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_ACTION_DETECTION_DETR;
-import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_ACTION_DOWNLOAD;
 import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_ACTION_TYPE;
-import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_FILE_URL;
 import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_INPUT_FILENAME;
 import static com.temirgaliyev.detection.ProgressBarActivity.EXTRA_OUTPUT_FILENAME;
-import static com.temirgaliyev.detection.Utils.CAPTURED_IMAGE_NAME;
-import static com.temirgaliyev.detection.Utils.drawRectangles;
-import static com.temirgaliyev.detection.Utils.getDetector;
 import static com.temirgaliyev.detection.Utils.millisToShortDHMS;
-import static com.temirgaliyev.detection.Utils.rotateBitmap;
-import static com.temirgaliyev.detection.Utils.getImageOrientation;
 
 public class NonRealTimeDetectionActivity extends AppCompatActivity {
 
@@ -78,8 +63,8 @@ public class NonRealTimeDetectionActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK){
-            if (requestCode == REQUEST_CODE_DETECTION_DETR){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CODE_DETECTION_DETR) {
                 inferenceEndTime = System.currentTimeMillis();
                 Bitmap bitmap = BitmapFactory.decodeFile(getExternalCacheDir() + "/" + Utils.BBOXED_IMAGE_NAME);
                 imageView.setImageBitmap(bitmap);

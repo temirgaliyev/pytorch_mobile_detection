@@ -15,7 +15,7 @@ public abstract class AbstractAsyncTask extends AsyncTask<String, String, String
     private WeakReference<ProgressBar> progressBarReference;
     private WeakReference<TextView> statusTextViewReference;
 
-    public AbstractAsyncTask(AppCompatActivity activity, ProgressBar progressBar, TextView statusTextView){
+    public AbstractAsyncTask(AppCompatActivity activity, ProgressBar progressBar, TextView statusTextView) {
         this.activityReference = new WeakReference<>(activity);
         this.progressBarReference = new WeakReference<>(progressBar);
         this.statusTextViewReference = new WeakReference<>(statusTextView);
@@ -24,15 +24,15 @@ public abstract class AbstractAsyncTask extends AsyncTask<String, String, String
     @Override
     protected void onPostExecute(String file_url) {
         setTextUI("Finished");
-        if (activityReference != null){
+        if (activityReference != null) {
             activityReference.get().setResult(Activity.RESULT_OK);
             activityReference.get().finish();
         }
     }
 
 
-    protected void setProgressUI(final int progress){
-        if (activityReference != null && progressBarReference != null){
+    protected void setProgressUI(final int progress) {
+        if (activityReference != null && progressBarReference != null) {
             activityReference.get().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -42,7 +42,7 @@ public abstract class AbstractAsyncTask extends AsyncTask<String, String, String
         }
     }
 
-    protected void setTextUI(final String text){
+    protected void setTextUI(final String text) {
         if (activityReference != null && statusTextViewReference != null) {
             activityReference.get().runOnUiThread(new Runnable() {
                 @Override
@@ -54,7 +54,7 @@ public abstract class AbstractAsyncTask extends AsyncTask<String, String, String
     }
 
 
-    protected Context getContext(){
+    protected Context getContext() {
         return activityReference.get();
     }
 

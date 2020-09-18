@@ -28,7 +28,7 @@ public class DownloadAsyncTask extends AbstractAsyncTask {
         try {
             setTextUI("Initializing...");
             int lastDotPosition = outputFilename.lastIndexOf('/');
-            if( lastDotPosition > 0 ) {
+            if (lastDotPosition > 0) {
                 String folder = outputFilename.substring(0, lastDotPosition);
                 File fDir = new File(folder);
                 fDir.mkdirs();
@@ -39,21 +39,21 @@ public class DownloadAsyncTask extends AbstractAsyncTask {
             c.setRequestMethod("GET");
             c.setReadTimeout(30000);
             c.connect();
-            double fileSize  = (double) c.getContentLength();
+            double fileSize = (double) c.getContentLength();
             int counter = 0;
-            while ( (fileSize == -1) && (counter <=30)){
+            while ((fileSize == -1) && (counter <= 30)) {
                 c.disconnect();
                 u = new URL(fileURL);
                 c = (HttpURLConnection) u.openConnection();
                 c.setRequestMethod("GET");
                 c.setReadTimeout(30000);
                 c.connect();
-                fileSize  = (double) c.getContentLength();
+                fileSize = (double) c.getContentLength();
                 counter++;
             }
 
             fOutput = new File(outputFilename);
-            if (fOutput.exists()){
+            if (fOutput.exists()) {
                 fOutput.delete();
             }
 
@@ -64,18 +64,18 @@ public class DownloadAsyncTask extends AbstractAsyncTask {
             byte[] buffer = new byte[8192];
             int len1;
             int downloadedData = 0;
-            while ((len1 = in.read(buffer)) > 0 ) {
-                setProgressUI((int) (downloadedData/fileSize*100));
+            while ((len1 = in.read(buffer)) > 0) {
+                setProgressUI((int) (downloadedData / fileSize * 100));
                 downloadedData += len1;
                 f.write(buffer, 0, len1);
-                if (isCancelled()){
+                if (isCancelled()) {
                     setTextUI("Cancelling");
                 }
             }
 
             f.close();
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
@@ -85,7 +85,7 @@ public class DownloadAsyncTask extends AbstractAsyncTask {
     protected void onCancelled() {
         super.onCancelled();
 
-        if (fOutput.exists()){
+        if (fOutput.exists()) {
             setTextUI("Deleting files...");
             fOutput.delete();
         }

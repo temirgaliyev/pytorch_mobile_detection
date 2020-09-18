@@ -8,18 +8,17 @@
 
     <ProgressBar
         android:id="@+id/progressBar"
+        style="?android:progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateBehavior="cycle"
         android:minWidth="100dp"
         android:minHeight="100dp"
-        style="?android:progressBarStyleHorizontal"
         android:progressDrawable="@drawable/circle"
-        android:layout_width="wrap_content"
-        android:indeterminateBehavior="cycle"
-        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/statusTextView"
@@ -31,9 +30,9 @@
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
     <Button
-        android:onClick="onCancelClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onCancelClick"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
