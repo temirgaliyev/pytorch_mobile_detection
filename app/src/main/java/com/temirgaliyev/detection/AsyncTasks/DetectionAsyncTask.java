@@ -41,24 +41,20 @@ public class DetectionAsyncTask extends AbstractAsyncTask {
     }
 
     private void detectionDETR(String inputFilename, String outputFilename){
-        Log.d(TAG, "Starting...");
+        setTextUI("Loading image...");
         BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
         bitmapOptions.inMutable = true;
         int orientation = getImageOrientation(inputFilename);
-        Log.d(TAG, "Decoding file...");
         Bitmap bitmap = BitmapFactory.decodeFile(inputFilename, bitmapOptions);
-        Log.d(TAG, "Rotating image...");
         Bitmap rotated = rotateBitmap(bitmap, orientation);
 
-        Log.d(TAG, "Getting detector...");
+        setTextUI("Loading detector weights...");
         AbstractDetection detr = getDetector(getContext(), DetectionModelEnum.DETR);
-        Log.d(TAG, "Predicting...");
+        setTextUI("Predicting...");
         ArrayList<Box> boxes = detr.predict(rotated);
-        Log.d(TAG, "Drawing rectangles...");
+        setTextUI("Drawing rectangles...");
         drawRectangles(boxes, rotated);
-        Log.d(TAG, "Saving rectangles...");
-        assert rotated != null;
-        Log.d(TAG, "Rotated: " + rotated.getWidth() + " " + rotated.getHeight());
+        setTextUI("Saving...");
         saveBitmap(rotated, outputFilename);
     }
 
