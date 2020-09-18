@@ -1,6 +1,7 @@
 # Detection with pytorch mobile
-*Probably first open-source mobile detection on pytorch*  
-Let me know in issues if it's not correct  
+*Probably first open-source mobile detection on pytorch&ast;*  
+
+&ast;Let me know in issues if it's not correct  
   
 [Description](#description)  
 [Why it's low-accuracy?](#why-ssd-has-low-accuracy)  
