@@ -8,10 +8,8 @@ import org.pytorch.Module;
 import org.pytorch.Tensor;
 import com.temirgaliyev.detection.Detection.SSD.SSDUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import static com.temirgaliyev.detection.Utils.assetFilePath;
 
 public abstract class AbstractDetection {
     private static String TAG = "ABSTRACT_DETECTION";
