@@ -1,4 +1,4 @@
-package com.temirgaliyev.detection;
+package com.temirgaliyev.detection.AsyncTasks;
 
 import android.os.AsyncTask;
 import android.widget.ProgressBar;
